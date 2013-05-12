@@ -11,11 +11,8 @@
     log::add_log(array(1, "My Error"));
     log::add_log(array(1, "My Error"));
     
-    mysql::query("SELECT * FROM `router_roules`");
-    echo mysql::count();
-    echo "<br /><br />";
+    router :: init("home");
     
-    router :: init();
     
     echo "Params: <br />";
     
@@ -26,4 +23,8 @@
     echo router::getAction();
     
     echo log::write_log();
+    
+    $ar = array('controller' => 'site', 'action' => 'home');
+    
+    echo json_encode($ar);
 ?>

@@ -50,7 +50,7 @@
 	    }
         }
 	
-        public static function fetchArray($sql = NULL)
+        public static function result($sql = NULL)
 	{
             $inc = '';
             if($sql === NULL)

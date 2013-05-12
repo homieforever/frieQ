@@ -57,9 +57,9 @@ abstract class router
          self::$rules = array();
      }
 
-     public static function init($map = "maps/router/router_home.php")
+     public static function init($rule_names = "home")
      {
-         self::addMap($map);
+         self::addMap($rule_names);
          $url = $_SERVER['REQUEST_URI'];
          $isCustom = false;
 
@@ -102,12 +102,15 @@ abstract class router
          }
      }
      
-     public static function addMap($file)
+     public static function addMap($router_names)
      {
-         require_once SYS_PATH . $file;
-         foreach($values as $data)
+         mysql::query("SELECT * FROM `router_roules` WHERE `router_name`='".$router_names."'");
+         
+         while($roule = mysql::result())
          {
-             self::addRule($data[0], $data[1]);
+             $array = (array) json_decode($roule['roule_actions']);  
+             self::addRule($roule['roule'], $array);
+             self::addRule($roule['roule']."/", $array);
          }
      }
      
